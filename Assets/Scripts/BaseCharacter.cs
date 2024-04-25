@@ -1,12 +1,14 @@
 using PracticalWork2.Movement;
 using PracticalWork2.Shooting;
+using PracticalWork2.PickUp;
 using UnityEngine;
+using PracticalWork2.Baths;
 
 namespace PracticalWork2
 {
-    [RequireComponent(typeof(CharacterMovementController), typeof(ShootingController))]
+    [RequireComponent(typeof(CharacterMovementController), typeof(ShootingController), typeof(BonusController))]
 
-    public class BaseCharacter : MonoBehaviour
+    public abstract class BaseCharacter : MonoBehaviour
     {
         [SerializeField]
         private Weapon _baseWeaponPrefab;
@@ -21,6 +23,7 @@ namespace PracticalWork2
 
         private CharacterMovementController _characterMovementController;
         private ShootingController _shootingController;
+        private BonusController _bonusController;
 
         protected void Awake()
         {
@@ -28,11 +31,12 @@ namespace PracticalWork2
 
             _characterMovementController = GetComponent<CharacterMovementController>();
             _shootingController = GetComponent<ShootingController>();
+            _bonusController = GetComponent<BonusController>();
         }
 
         protected void Start()
         {
-            _shootingController.SetWeapon(_baseWeaponPrefab, _hand);
+            SetWeapon(_baseWeaponPrefab);
         }
 
         protected void Update()
@@ -59,6 +63,29 @@ namespace PracticalWork2
 
                 Destroy(other.gameObject);
             }
+            else if (LayerUtils.PickUpWeapon(other.gameObject))
+            {
+                var pickUpWeapon = other.gameObject.GetComponent<PickUpWeapon>();
+                pickUpWeapon.PickUp(this);
+                
+                Destroy(other.gameObject);
+            }
+            else if (LayerUtils.PickUpBonus(other.gameObject))
+            {
+                var pickUpBonus = other.gameObject.GetComponent<PickUpBonus>();
+                pickUpBonus.PickUp(this);
+
+                Destroy(other.gameObject);
+            }
+        }
+
+        public void SetWeapon(Weapon weapon)
+        {
+            _shootingController.SetWeapon(weapon, _hand);
+        }
+        public void SetBonus(Bonus bonus)
+        {
+            _bonusController.SetBonus(bonus, _characterMovementController);
         }
     }
 }

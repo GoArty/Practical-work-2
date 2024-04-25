@@ -11,9 +11,6 @@ namespace PracticalWork2.Movement
         private float _speed = 1f;
         [SerializeField]
         private float _maxRadiansDelta = 10f;
-        [SerializeField]
-        private float n = 2f;
-
 
         public Vector3 MovementDirection { get; set; }
         public Vector3 LookDirection { get; set; }
@@ -35,10 +32,7 @@ namespace PracticalWork2.Movement
 
         private void Translate()
         {
-            var acceleration = Input.GetKey(KeyCode.Space);
             var delta = MovementDirection * _speed * Time.deltaTime;
-            if (acceleration)
-                delta *= n;
             _characterController.Move(delta);
         }
 

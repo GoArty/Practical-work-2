@@ -6,6 +6,9 @@ namespace PracticalWork2.Movement
     {
         private UnityEngine.Camera _camera;
 
+        [SerializeField]
+        private float n = 2f;
+
         public Vector3 MovementDirection { get; private set; }
 
         protected void Awake()
@@ -23,6 +26,10 @@ namespace PracticalWork2.Movement
             direction.y = 0;
 
             MovementDirection = direction.normalized;
+
+            var acceleration = Input.GetKey(KeyCode.Space);
+            if (acceleration)
+                MovementDirection *= n;
         }
     }
 }

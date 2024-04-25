@@ -236,7 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _maxRadiansDelta: 5
+  _maxRadiansDelta: 10
+  n: 2
 --- !u!114 &1812092258879135926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseWeaponPrefab: {fileID: 1539636325476235722, guid: 9a9dee8cb6295be47bea06f8d267e9fb, type: 3}
   _hand: {fileID: 1881925762247016658}
-  _health: 10
+  _health: 50
 --- !u!114 &5006947712139263493
 MonoBehaviour:
   m_ObjectHideFlags: 0

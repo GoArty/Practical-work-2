@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PracticalWork2.Shooting
 {
@@ -26,14 +24,14 @@ namespace PracticalWork2.Shooting
                     _weapon.Shoot(TargetPosition);
 
                 _nextShotTimerSec = _weapon.ShootFrequencySec;
-                _target = null;
             }
-
-    
         }
 
         public void SetWeapon(Weapon weaponPrefab, Transform hand)
         {
+            if(_weapon != null)
+                Destroy(_weapon.gameObject);
+
             _weapon = Instantiate(weaponPrefab, hand);
             _weapon.transform.localPosition = Vector3.zero;
             _weapon.transform.localRotation = Quaternion.identity;
@@ -45,14 +43,13 @@ namespace PracticalWork2.Shooting
 
             var position = _weapon.transform.position;
             var radius = _weapon.ShootRadius;
-            var maskEnemy = LayerUtils.EnemyMask;
-            var maskPlayers = LayerUtils.PlayerMask;
 
-            
-            var sizeEnemys = Physics.OverlapSphereNonAlloc(position, radius, _colliders, maskEnemy);
-            if (sizeEnemys > 0)
+            var maskCharacter = LayerUtils.CharacterMask;
+
+            var sizeCharacter = Physics.OverlapSphereNonAlloc(position, radius, _colliders, maskCharacter);
+            if (sizeCharacter > 0)
             {
-                for(int i = 0; i < sizeEnemys; i++)
+                for (int i = 0; i < sizeCharacter; i++)
                 {
                     if (_colliders[i].gameObject != gameObject)
                     {
@@ -61,21 +58,6 @@ namespace PracticalWork2.Shooting
                     }
                 }
             }
-  
-            
-                var sizePlayers = Physics.OverlapSphereNonAlloc(position, radius, _colliders, maskPlayers);
-                if (sizePlayers > 0)
-                {
-                    for (int i = 0; i < sizePlayers; i++)
-                    {
-                        if (_colliders[i].gameObject != gameObject)
-                        {
-                            target = _colliders[i].gameObject;
-                            break;
-                        }
-                    }
-                }
-            
 
             return target;
         }
