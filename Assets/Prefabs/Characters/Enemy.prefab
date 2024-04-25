@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 221721189504343219}
   - component: {fileID: 8905631185215158405}
   - component: {fileID: -7093535286858721015}
+  - component: {fileID: 7008649708681091991}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -63,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 4960906729361276752}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1, y: 1, z: -8.23}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -200,6 +201,18 @@ MonoBehaviour:
   _baseWeaponPrefab: {fileID: 1539636325476235722, guid: 9a9dee8cb6295be47bea06f8d267e9fb, type: 3}
   _hand: {fileID: 8542151395834360867}
   _health: 10
+--- !u!114 &7008649708681091991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960906729361276752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf8852ef0b517b4f93b2d713e214b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5091348591961747248
 GameObject:
   m_ObjectHideFlags: 0
