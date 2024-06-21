@@ -6,7 +6,7 @@ using PracticalWork2.Baths;
 
 namespace PracticalWork2
 {
-    [RequireComponent(typeof(CharacterMovementController), typeof(ShootingController), typeof(BonusController))]
+    [RequireComponent(typeof(CharacterMovementController), typeof(ShootingController))]
 
     public abstract class BaseCharacter : MonoBehaviour
     {
@@ -19,11 +19,15 @@ namespace PracticalWork2
         [SerializeField]
         private float _health = 2f;
 
+        private bool _accelerationBonusWork = false;
+        private float _remainAccelerationBonusSec = 0f;
+        private float _accelerationMultiplier = 0f;
+
         private IMovementDirectionSource _movementDirectionSource;
 
         private CharacterMovementController _characterMovementController;
         private ShootingController _shootingController;
-        private BonusController _bonusController;
+
 
         protected void Awake()
         {
@@ -31,7 +35,6 @@ namespace PracticalWork2
 
             _characterMovementController = GetComponent<CharacterMovementController>();
             _shootingController = GetComponent<ShootingController>();
-            _bonusController = GetComponent<BonusController>();
         }
 
         protected void Start()
@@ -44,11 +47,13 @@ namespace PracticalWork2
             var direction = _movementDirectionSource.MovementDirection;
             var lookDirection = direction;
 
-            if(_shootingController.HasTarget)
+            if (_shootingController.HasTarget)
                 lookDirection = (_shootingController.TargetPosition - transform.position).normalized;
 
             _characterMovementController.MovementDirection = direction;
             _characterMovementController.LookDirection = lookDirection;
+
+            BonusCheck();
 
             if (_health <= 0f)
                 Destroy(gameObject);
@@ -79,13 +84,29 @@ namespace PracticalWork2
             }
         }
 
-        public void SetWeapon(Weapon weapon)
+        public void SetWeapon(Weapon weapon) => _shootingController.SetWeapon(weapon, _hand);
+
+        public void BonusCheck()
         {
-            _shootingController.SetWeapon(weapon, _hand);
+            if (_accelerationBonusWork)
+            {
+                if (_remainAccelerationBonusSec > 0)
+                {
+                    _remainAccelerationBonusSec -= Time.deltaTime;
+                    _characterMovementController.MovementDirection *= _accelerationMultiplier;
+                }
+                else
+                {
+                    _accelerationBonusWork = false;
+                }
+            }
         }
-        public void SetBonus(Bonus bonus)
+
+        public void SetBonus(Bonus bonusPrefab)
         {
-            _bonusController.SetBonus(bonus, _characterMovementController);
-        }
+            _accelerationBonusWork = true;
+            _remainAccelerationBonusSec = bonusPrefab.AccelerationDurationSec;
+            _accelerationMultiplier = bonusPrefab.AccelerationMultiplier;
+        }        
     }
 }
