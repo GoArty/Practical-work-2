@@ -11,10 +11,5 @@ namespace PracticalWork2.Baths
         [field: SerializeField]
         public float AccelerationMultiplier { get; private set; } = 2f;
 
-
-        public void AccelerationBonus(Vector3 targetPoint)
-        {
-
-        }
     }
 }

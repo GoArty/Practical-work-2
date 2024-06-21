@@ -16,23 +16,28 @@ namespace PracticalWork2.PickUp
         private int _maxCount = 2;
 
         [SerializeField]
-        private float _spawnIntervalSecond = 10f;
+        private float _spawnIntervalSecondMax = 20f;
+
+        [SerializeField]
+        private float _spawnIntervalSecondMin = 5f;
+
+        private float _spawnIntervalSecond = 0f;
 
         private float _currentSpawnTimeSeconds;
         private int _currentCount;
-
 
         protected void Update()
         {
             Random.InitState(System.DateTime.Now.Second);
             if (_currentCount < _maxCount)
             {
-                
-                _currentSpawnTimeSeconds += Random.Range(1, _spawnIntervalSecond/2) * Time.deltaTime;
-                if(_currentSpawnTimeSeconds > _spawnIntervalSecond )
+                _currentSpawnTimeSeconds += Time.deltaTime;
+                if (_currentSpawnTimeSeconds > _spawnIntervalSecond)
                 {
                     _currentSpawnTimeSeconds = 0f;
+                    _spawnIntervalSecond = Random.Range(_spawnIntervalSecondMin, _spawnIntervalSecondMax);
                     _currentCount++;
+
                     var randomPointInsideRange = Random.insideUnitCircle * _range;
                     var randomPosition = new Vector3(randomPointInsideRange.x, 0f, randomPointInsideRange.y) + 
                         transform.position;
