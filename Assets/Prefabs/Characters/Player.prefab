@@ -218,8 +218,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 15
+  m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -236,8 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _maxRadiansDelta: 10
-  n: 2
+  _maxRadiansDelta: 20
 --- !u!114 &1812092258879135926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacde6163fb267c41884a6849ecc0284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  n: 2
 --- !u!114 &4058763624101858287
 MonoBehaviour:
   m_ObjectHideFlags: 0

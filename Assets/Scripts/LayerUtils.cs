@@ -15,6 +15,7 @@ namespace PracticalWork2
         public static readonly int PickUpBonusLayer = LayerMask.NameToLayer(PickUpBonusLayerName);
 
         public static readonly int CharacterMask = LayerMask.GetMask(PlayerLayerName, EnemyLayerName);
+        public static readonly int PickUpMask = LayerMask.GetMask(PickUpWeaponLayerName, PickUpBonusLayerName);
 
         public static bool IsBullet(GameObject other) => other.layer == BulletLayer;
         public static bool PickUpWeapon(GameObject other) => other.layer == PickUpWeaponLayer;
